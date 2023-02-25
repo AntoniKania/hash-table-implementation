@@ -1,7 +1,7 @@
 public class HashTableChaining<K, V> {
     private final int size;
     private int numberOfRecords; // tracking number of Key-Value pairs in given hash table
-    private LinkedList<K, V>[] indexes; // Array of all records in hash table
+    private LinkedList<K, V>[] indexes; // Array of all indexes in hash table
 
     public HashTableChaining() {
         this(997);
@@ -71,7 +71,8 @@ public class HashTableChaining<K, V> {
 
         System.out.println("Size of hash table: " + hashTable.getSize());
         System.out.println("Number of records:" + hashTable.getNumberOfRecords());
-        System.out.println("value for key Warszawa: " + hashTable.getValue("Warszawa"));
+        System.out.println("Value for key Warszawa: " + hashTable.getValue("Warszawa"));
+        System.out.println();
 
         hashTable.printTable();
     }
@@ -92,18 +93,23 @@ public class HashTableChaining<K, V> {
         }
 
         public V getValue(K key) {
-            for (Node x = first; x != null; x = x.next)
-                if (key.equals(x.key)) // hit
+            for (Node x = first; x != null; x = x.next) {
+                if (key.equals(x.key)) { // hit
                     return x.val;
+                }
+            }
+
             return null; // miss
         }
 
         public void put(K key, V val) {
-            for (Node x = first; x != null; x = x.next)
+            for (Node x = first; x != null; x = x.next) {
                 if (key.equals(x.key)) { // hit (value with given key already exists): updating the value
                     x.val = val;
                     return;
                 }
+            }
+
             first = new Node(key, val, first); // miss: adding new Node at the beginning of the LinkedList
         }
 
